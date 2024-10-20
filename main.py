@@ -1,5 +1,5 @@
 # module_5_1.py
-# 19.10.2024 Задача "Developer - не только разработчик"
+# 20.10.2024 Испр. Задача "Developer - не только разработчик"
 
 
 class House:
@@ -8,13 +8,11 @@ class House:
         self.number_of_floors = number
 
     def go_to(self, new_floor):
-        for i in range(1, int(new_floor) + 1):
-            if new_floor > int(self.number_of_floors) or new_floor < 1:
-                print('Такого этажа не существует')
-                break
-            else:
+        if new_floor > self.number_of_floors or new_floor < 1:
+            print('Такого этажа не существует')
+        else:
+            for i in range(1, new_floor + 1):
                 print(i)
-        return
 
 
 h1 = House('ЖК Горский', 18)
