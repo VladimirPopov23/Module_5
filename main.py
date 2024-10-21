@@ -1,5 +1,5 @@
 # module_5_3.py
-# 21.10.2024 Задача "Нужно больше этажей"
+# 21.10.2024 Задача "Нужно больше этажей" в.2
 
 
 class House:
@@ -21,40 +21,42 @@ class House:
         title = str(f'Название: {self.name}, кол-во этажей: {self.number_of_floors}')
         return title
 
-    def __eg__(self, other):
-        if isinstance(other.number_of_floors, int) and isinstance(other, House):
+    def __eq__(self, other):
+        if isinstance(other, House):
             return self.number_of_floors == other.number_of_floors
+        elif isinstance(other, int):
+            return self.number_of_floors == other
 
     def __lt__(self, other):
-        if isinstance(other.number_of_floors, int) and isinstance(other, House):
+        if isinstance(other, House):
             return self.number_of_floors < other.number_of_floors
+        elif isinstance(other, int):
+            return self.number_of_floors < other
 
     def __le__(self, other):
-        if isinstance(other.number_of_floors, int) and isinstance(other, House):
-            return self.number_of_floors <= other.number_of_floors
+        return self.__eq__(other) or self.__lt__(other)
 
     def __gt__(self, other):
-        if isinstance(other.number_of_floors, int) and isinstance(other, House):
-            return self.number_of_floors > other.number_of_floors
+        return not self.__le__(other)
 
     def __ge__(self, other):
-        if isinstance(other.number_of_floors, int) and isinstance(other, House):
-            return self.number_of_floors >= other.number_of_floors
+        return not self.__lt__(other)
 
     def __ne__(self, other):
-        if isinstance(other.number_of_floors, int) and isinstance(other, House):
-            return self.number_of_floors != other.number_of_floors
+        return not self.__eq__(other)
 
     def __add__(self, value):
-        if isinstance(value, int):
+        if isinstance(value, House):
+            self.number_of_floors += value.number_of_floors
+        elif isinstance(value, int):
             self.number_of_floors += value
         return self
 
-    def __radd__(self, value):
-        return self.__add__(value)
+    def __radd__(self, other):
+        return self.__add__(other)
 
-    def __iadd__(self, value):
-        return self.__add__(value)
+    def __iadd__(self, other: int):
+        return self.__add__(other)
 
 
 h1 = House('ЖК Эльбрус', 10)
